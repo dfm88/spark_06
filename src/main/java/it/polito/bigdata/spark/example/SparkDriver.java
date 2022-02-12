@@ -13,26 +13,37 @@ public class SparkDriver {
 		inputPath=args[0];
 		outputPath=args[1];
 
-	
-		// Create a configuration object and set the name of the application
-		SparkConf conf=new SparkConf().setAppName("Spark Lab #6");
-		
 		// Use the following command to create the SparkConf object if you want to run
 		// your application inside Eclipse.
-		// SparkConf conf=new SparkConf().setAppName("Spark Lab #6").setMaster("local");
+		 SparkConf conf=new SparkConf().setAppName("Spark Lab #6").setMaster("local");
 		// Remember to remove .setMaster("local") before running your application on the cluster
 		
 		// Create a Spark Context object
 		JavaSparkContext sc = new JavaSparkContext(conf);
 
-		
 		// Read the content of the input file
-		// JavaRDD<String> inputRDD = sc.textFile(inputPath);
+		JavaRDD<String> inputRDD = sc.textFile(inputPath);
 
-		// TODO .......
-		
+		// * * * * * * * * * * * * * * * * //
+		// * Task 1 * //
+
+		// 1 - create a PairRDD (user_id, list of product_ids reviewed by user_id) //
+
+
+		// 2 - counts the freq of pair products reviewed together //
+
+
+		// 3 - save the products that appear more than once together sorted by freq desc //
+
+
+		// * * * * * * * * * * * * * * * * //
+		// * Task 2 * //
+
+		// 1 - save top 10 most freq pairs of products and their freq //
+
+
 		// Store the result in the output folder
-		// resultRDD.saveAsTextFile(outputPath);
+		resultRDD.saveAsTextFile(outputPath);
 
 		// Close the Spark context
 		sc.close();
