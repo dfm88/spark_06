@@ -104,15 +104,19 @@ public class SparkDriver {
 			return new Tuple2<>(el._2(), el._1());
 		});
 		JavaPairRDD<Integer, String> orderedPairRdd2 = swappedTotalProdOccPairRDD.sortByKey(false);
-		orderedPairRdd2.saveAsTextFile(outputPath);
-
-
+//		orderedPairRdd2.saveAsTextFile(outputPath);
 
 
 		// * * * * * * * * * * * * * * * * //
 		// * Task 2 * //
 
 		// 1 - save top 10 most freq pairs of products and their freq //
+		/**ORDER First method (top k + peronslized comparator)**/
+		// top k (k = rdd all the rdd) with personalized comparator based on Integer PairRDD (value not key)
+		List<Tuple2<String, Integer>> orderedList = prodsOccTotalPairRDD.top(10, new CompareProdFreq());
+		//convert list to pairdd and save in output folder
+		JavaPairRDD<String, Integer> orderedPairRdd = sc.parallelizePairs(orderedList);
+		orderedPairRdd.saveAsTextFile(outputPath);
 
 
 		// Store the result in the output folder
